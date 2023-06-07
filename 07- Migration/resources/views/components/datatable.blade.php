@@ -5,14 +5,10 @@
         <tr>
             @php $cont=0; @endphp
             @foreach ($header as $item)
-
                 @if($hide[$cont])
-                    @if($hide[$cont] != 'id')
-                        <th scope="col" class="d-none d-md-table-cell">{{ strtoupper($item) }}</th> ]
-                    @endif
+                        <th scope="col" class="d-none d-md-table-cell">{{ strtoupper($item) }}</th>
                 @endif
                 @php $cont++; @endphp
-
             @endforeach
 
             <th scope="col">AÇÕES</th>
@@ -21,9 +17,15 @@
         <tbody>
             @foreach ($data as $item)
                 <tr>
-                    <td class="d-none d-md-table-cell">{{ $item[$header[0]] }}</td>
-                    <td>{{ $item[$header[1]] }}</td>
-                    <td class="d-none d-md-table-cell">{{ $item[$header[2]] }}</td>
+                    @php $cont=0; @endphp
+                    @foreach ($header as $h)
+                        @if($hide[$cont])
+                            <td class="d-none d-md-table-cell">{{ $item[$h] }}</td>
+                        @endif
+                        @php $cont++; @endphp
+                    @endforeach
+                
+                   
                     <td>
                         <a href= "{{ route($crud.'.edit', $item[$header[0]]) }}" class="btn btn-success">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFF" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">

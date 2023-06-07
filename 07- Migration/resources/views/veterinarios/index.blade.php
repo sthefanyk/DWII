@@ -12,7 +12,7 @@
                 crud="veterinarios" 
                 :header="['id', 'crmv', 'nome', 'especialidade']" 
                 :data="$dados"
-                :hide="[false, true, false, true]" 
+                :hide="[false, true, true, true]" 
             /> 
         </div>
     </div>

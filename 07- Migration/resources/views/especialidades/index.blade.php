@@ -12,7 +12,7 @@
                 crud="especialidades" 
                 :header="['id', 'nome', 'descricao']" 
                 :data="$dados"
-                :hide="[true, false, true]" 
+                :hide="[false, true, true]" 
             /> 
         </div>
     </div>

@@ -10,6 +10,14 @@ class VeterinarioController extends Controller{
 
     public function index() {
         $dados = Veterinario::all();
+        $especialidades = Especialidade::all();
+        foreach ($dados as $vet) {
+            foreach ($especialidades as $esp) {
+                if ($esp->id == $vet->especialidade_id) {
+                    $vet->especialidade = $esp->nome;
+                }
+            }
+        }
         return view('veterinarios.index', compact(['dados']));
     }
 

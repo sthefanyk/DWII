@@ -12,7 +12,7 @@
                 crud="clientes" 
                 :header="['id', 'nome', 'email']" 
                 :data="$dados"
-                :hide="[true, false, true]" 
+                :hide="[false, true, true, true]" 
             /> 
         </div>
     </div>
