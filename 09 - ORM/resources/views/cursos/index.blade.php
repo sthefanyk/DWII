@@ -12,7 +12,7 @@
                 crud="cursos" 
                 :header="['id', 'nome', 'sigla']" 
                 :data="$data"
-                :acao="[false, true, true, false, false, true]" 
+                :acao="[false, true, true, false, false, true, false]" 
             /> 
         </div>
     </div>

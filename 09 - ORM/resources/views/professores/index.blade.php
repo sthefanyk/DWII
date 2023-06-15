@@ -14,7 +14,7 @@
                 :data="$data"
                 :eixos="$eixos"
                 :docencia="$docencia"
-                :acao="[true, true, true, true, false, false]" 
+                :acao="[true, true, true, true, false, false, false]" 
             /> 
         </div>
     </div>

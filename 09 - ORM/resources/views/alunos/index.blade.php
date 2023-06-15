@@ -4,15 +4,14 @@
 @section('titulo') Alunos @endsection
 <!-- Preenche o conteúdo da seção "conteudo" -->
 @section('conteudo')
-
     <div class="row">
         <div class="col">
             <x-datatable 
                 title="Alunos" 
                 crud="alunos" 
-                :header="['id', 'nome']" 
+                :header="['id', 'nome', 'cursos']" 
                 :data="$data"
-                :acao="[false, true, true, false, false, true]" 
+                :acao="[false, true, true, false, false, true, true]" 
             /> 
         </div>
     </div>

@@ -36,6 +36,19 @@ class EixoController extends Controller
      */
     public function store(Request $request)
     {
+        $regras = [
+            'nome' => 'required|min:10|max:50',
+            'descricao' => 'required',
+        ];
+
+        $msg = [
+            "required" => "O campo [:attribute] é obrigatório!",
+            "min" => "O [:attribute] deve conter no mínimo [:min] caracteres!",
+            "max" => "O [:attribute] deve conter no máximo [:max] caracteres!",
+        ];
+
+        $request->validate($regras, $msg);
+
         $encoding = mb_internal_encoding();
 
         AreaEixo::create([

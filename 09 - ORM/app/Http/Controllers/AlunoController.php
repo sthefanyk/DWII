@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aluno;
 use App\Models\Curso;
 use App\Models\Disciplina;
+use App\Models\Matricula;
 
 use Illuminate\Http\Request;
 
@@ -18,8 +19,28 @@ class AlunoController extends Controller
     public function index()
     {
         $data = Aluno::with(['curso'])->get();
+        //return $data[0]->curso->nome;
         return view('alunos.index', compact(['data']));
     }
+
+    /*
+    [
+        {   
+            "id":1,
+            "nome":"STHEFANY KIMBERLY VIT\u00d3RIA",
+            "curso_id":1,"deleted_at":null,
+            "created_at":"2023-06-15T17:42:21.000000Z",
+            "updated_at":"2023-06-15T18:27:47.000000Z",
+            "curso":{
+                "id":1,
+                "nome":"TECNOLOGIA EM ANALISE DESENVOLVIMENTO DE SISTEMAS",
+                "sigla":"TADS",
+                "tempo":3,
+                "eixo_id":2,
+                "deleted_at":null,
+                "created_at":"2023-06-15T17:40:26.000000Z",
+                "updated_at":"2023-06-15T17:40:26.000000Z"}}]
+    */
 
     /**
      * Show the form for creating a new resource.
@@ -41,7 +62,7 @@ class AlunoController extends Controller
     public function store(Request $request)
     {
         $regras = [
-            'nome' => 'required|min:10|max:50',
+            'nome' => 'required|min:10|max:100',
             'curso_id' => 'required',
         ];
 
@@ -78,7 +99,7 @@ class AlunoController extends Controller
 
         $dados[1]= Disciplina::where('curso_id', $dados[0]->curso_id)->get();
 
-        //$dados[2] = Matricula::where('aluno_id', $id)->get();
+        $dados[2] = Matricula::where('aluno_id', $id)->get();
 
         return view('matriculas.index', compact('dados'));
     }

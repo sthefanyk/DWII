@@ -13,7 +13,7 @@
                 :header="['id', 'nome', 'curso']" 
                 :data="$data"
                 :cursos="$cursos"
-                :acao="[false, true, true, false, true, true, true]" 
+                :acao="[false, true, true, false, true, true, false]" 
             /> 
         </div>
     </div>

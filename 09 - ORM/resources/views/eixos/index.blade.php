@@ -12,7 +12,7 @@
                 crud="eixos" 
                 :header="['id', 'nome', 'descricao']" 
                 :data="$data"
-                :acao="[false, true, false, false, false, true]" 
+                :acao="[false, true, false, false, false, true, false]" 
             /> 
         </div>
     </div>

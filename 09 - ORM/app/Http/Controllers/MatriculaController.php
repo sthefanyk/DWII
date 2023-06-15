@@ -16,7 +16,8 @@ class MatriculaController extends Controller
      */
     public function index()
     {
-        //
+        $dados[0] = Matricula::all();
+        return view('matriculas.index', compact(['dados']));
     }
 
     /**
