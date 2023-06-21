@@ -41,9 +41,9 @@ class MatriculaController extends Controller
         $matriculas = $request->matriculas;
         $obj_aluno = Aluno::find($request->aluno);
         Matricula::where('aluno_id', $obj_aluno->id)->forceDelete();
+
         if($matriculas != null){
             foreach($matriculas as $mat){
-
                 $obj_disciplina = Disciplina::find($mat);
 
                 if(!isset($obj_aluno) || !isset($obj_disciplina)) { 
@@ -55,10 +55,10 @@ class MatriculaController extends Controller
                 $obj->disciplina()->associate($obj_disciplina);
                 $obj->save();
             }
-            return redirect()->route('alunos.index');
-        }else {
-            return redirect()->route('alunos.index');
         }
+        
+        return redirect()->route('alunos.index');
+        
     }
 
     /**
