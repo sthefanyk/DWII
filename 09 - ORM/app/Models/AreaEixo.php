@@ -11,4 +11,12 @@ class AreaEixo extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable = ['nome', 'descricao'];
+
+    public function curso() {
+        return $this->hasMany('\App\Models\Curso');
+    }
+
+    public function professor() {
+        return $this->hasMany('\App\Models\Professor');
+    }
 }

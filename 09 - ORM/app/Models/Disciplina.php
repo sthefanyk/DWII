@@ -11,16 +11,16 @@ class Disciplina extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable = ['nome', 'curso_id', 'carga'];
-
-    /*public function professor() {
-        return $this->belongsTo('\App\Models\Professor', 'vinculos');
-    }*/
-
+    
+    public function aluno() {
+        return $this->hasMany('\App\Models\Aluno', 'matriculas');
+    }
+    
     public function curso() {
         return $this->belongsTo('\App\Models\Curso');
     }
 
-    public function aluno() {
-        return $this->hasMany('\App\Models\Aluno', 'matriculas');
+    public function professor() {
+        return $this->belongsTo('\App\Models\Professor', 'docencias');
     }
 }

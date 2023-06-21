@@ -12,7 +12,6 @@
                 crud="disciplinas" 
                 :header="['id', 'nome', 'curso']" 
                 :data="$data"
-                :cursos="$cursos"
                 :acao="[false, true, true, false, true, true, false]" 
             /> 
         </div>

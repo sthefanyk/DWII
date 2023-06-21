@@ -12,8 +12,6 @@
                 crud="professores" 
                 :header="['id', 'nome', 'Área/Eixo', 'ativo']" 
                 :data="$data"
-                :eixos="$eixos"
-                :docencia="$docencia"
                 :acao="[true, true, true, true, false, false, false]" 
             /> 
         </div>

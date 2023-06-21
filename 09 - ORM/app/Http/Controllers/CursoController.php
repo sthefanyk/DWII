@@ -15,9 +15,8 @@ class CursoController extends Controller
      */
     public function index()
     {
-        $data = Curso::all();
-        $eixos = AreaEixo::all();
-        return view('cursos.index', compact(['data', 'eixos']));
+        $data = Curso::with(['eixo'])->get();
+        return view('cursos.index', compact(['data']));
     }
 
     /**
@@ -39,6 +38,22 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
+
+        $regras = [
+            'nome' => 'required|min:10|max:50',
+            'sigla' => 'required|min:2|max:8',
+            'tempo' => 'required|min:1|max:2',
+            'eixo_id' => 'required',
+        ];
+
+        $msg = [
+            "required" => "O campo [:attribute] é obrigatório!",
+            "min" => "O [:attribute] deve conter no mínimo [:min] caracteres!",
+            "max" => "O [:attribute] deve conter no máximo [:max] caracteres!",
+        ];
+
+        $request->validate($regras, $msg);
+
         $encoding = mb_internal_encoding();
 
         Curso::create([
@@ -73,7 +88,7 @@ class CursoController extends Controller
     public function edit($id)
     {
         $data = Curso::find($id);
-        $eixos = AreaEixo::all();   
+        $eixos = AreaEixo::all();
         return view('cursos.edit', compact(['data', 'eixos']));
     }
 

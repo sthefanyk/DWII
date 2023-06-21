@@ -25,22 +25,11 @@
                     @php $cont=0; @endphp
                     @foreach ($header as $hide)
                         @if($cont)    
-                            @if($hide == 'Área/Eixo') 
-                                @if($eixos??'' != null)
-                                    @foreach ($eixos as $eixo)
-                                        @if($eixo->id == $item->eixo_id)
-                                            <td class="d-none d-md-table-cell">{{ $eixo->nome }}</td>
-                                        @endif
-                                    @endforeach
-                                @endif
-                            @elseif($hide == 'curso') 
-                                @if($cursos??'' != null)
-                                    @foreach ($cursos as $curso)
-                                        @if($curso->id == $item->curso_id)
-                                            <td class="d-none d-md-table-cell">{{ $curso->nome }}</td>
-                                        @endif
-                                    @endforeach
-                                @endif    
+                            @if($hide == 'Área/Eixo')
+                                <td class="d-none d-md-table-cell">{{ $item->eixo->nome }}</td>
+                                
+                            @elseif($hide == 'curso')
+                                <td class="d-none d-md-table-cell">{{ $item->curso->nome }}</td>
                             @elseif($hide == 'ativo')
                                 @if($item->$hide == "1")
                                     <td class="d-none d-md-table-cell">ATIVO</td>
@@ -58,13 +47,7 @@
                     <td>
                         @if($acao[0] == true)
                             @if($item->ativo == '1')
-                                @php $vinculos=0; @endphp
-                                @foreach ($docencia as $doc)
-                                    @if($doc->professor_id == $item->id)
-                                        @php $vinculos++; @endphp
-                                    @endif
-                                @endforeach
-                                <a nohref style="cursor:pointer" onclick="showDeactivateModal('{{ $item->id }}', '{{ $item->nome }}', '{{ $vinculos }}')" class="btn btn-success">
+                                <a nohref style="cursor:pointer" onclick="showDeactivateModal('{{ $item->id }}', '{{ $item->nome }}', '{{ $item->vinculos }}')" class="btn btn-success">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFF" class="bi bi-check-lg" viewBox="0 0 16 16">
                                         <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
                                     </svg>

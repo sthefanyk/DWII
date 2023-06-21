@@ -12,12 +12,17 @@
                 <div class="form-floating mb-3">
                     <input 
                         type="text" 
-                        class="form-control" 
+                        class="form-control @if($errors->has('nome')) is-invalid @endif" 
                         name="nome" 
                         placeholder="Nome"
                         value="{{old('nome')}}"
                     />
                     <label for="nome">Nome da Disciplina</label>
+                    @if($errors->has('nome'))
+                        <div class='invalid-feedback'>
+                            {{ $errors->first('nome') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

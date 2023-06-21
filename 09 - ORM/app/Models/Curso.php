@@ -16,12 +16,11 @@ class Curso extends Model
         return $this->hasMany('\App\Models\Disciplina');
     }
     
-    /*
-    public function eixo() {
-        return $this->belongsTo('\App\Models\Eixo');
-    }*/
-
     public function aluno() {
         return $this->hasMany('\App\Models\Aluno');
+    }
+
+    public function eixo() {
+        return $this->belongsTo('\App\Models\AreaEixo');
     }
 }

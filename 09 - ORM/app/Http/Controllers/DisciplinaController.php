@@ -15,9 +15,8 @@ class DisciplinaController extends Controller
      */
     public function index()
     {
-        $data = Disciplina::all();
-        $cursos = Curso::all();
-        return view('disciplinas.index', compact(['data', 'cursos']));
+        $data = Disciplina::with(['curso'])->get();
+        return view('disciplinas.index', compact(['data']));
     }
 
     /**
@@ -39,6 +38,20 @@ class DisciplinaController extends Controller
      */
     public function store(Request $request)
     {
+        $regras = [
+            'nome' => 'required|min:10|max:100',
+            'carga' => 'required|min:1|max:12',
+            'curso_id' => 'required',
+        ];
+
+        $msg = [
+            "required" => "O campo [:attribute] é obrigatório!",
+            "min" => "O [:attribute] deve conter no mínimo [:min] caracteres!",
+            "max" => "O [:attribute] deve conter no máximo [:max] caracteres!",
+        ];
+
+        $request->validate($regras, $msg);
+
         $encoding = mb_internal_encoding();
 
         Disciplina::create([
@@ -85,6 +98,20 @@ class DisciplinaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $regras = [
+            'nome' => 'required|min:10|max:100',
+            'carga' => 'required|min:1|max:12',
+            'curso_id' => 'required',
+        ];
+
+        $msg = [
+            "required" => "O campo [:attribute] é obrigatório!",
+            "min" => "O [:attribute] deve conter no mínimo [:min] caracteres!",
+            "max" => "O [:attribute] deve conter no máximo [:max] caracteres!",
+        ];
+
+        $request->validate($regras, $msg);
+        
         $encoding = mb_internal_encoding();
         
         $reg = Disciplina::find($id);

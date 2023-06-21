@@ -16,10 +16,18 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        $data = Professor::all();
-        $eixos = AreaEixo::all();
         $docencia = Docencia::all();
-        return view('professores.index', compact(['data', 'eixos', 'docencia']));
+        $data = Professor::with(['eixo'])->get();
+        
+        foreach ($data as $prof) {
+            $prof->vinculos = 0;
+            foreach ($docencia as $doc) {
+                if ($doc->professor_id == $prof->id) {
+                    $prof->vinculos++;
+                }
+            }
+        }
+        return view('professores.index', compact(['data']));
     }
 
     /**
@@ -41,6 +49,21 @@ class ProfessorController extends Controller
      */
     public function store(Request $request)
     {
+        $regras = [
+            'nome' => 'required|min:10|max:100',
+            'email' => 'required|min:15|max:250|unique:professores',
+            'siape' => 'required|min:8|max:10|unique:professores',
+            'eixo_id' => 'required',
+        ];
+
+        $msg = [
+            "required" => "O campo [:attribute] é obrigatório!",
+            "min" => "O [:attribute] deve conter no mínimo [:min] caracteres!",
+            "max" => "O [:attribute] deve conter no máximo [:max] caracteres!",
+        ];
+
+        $request->validate($regras, $msg);
+
         $encoding = mb_internal_encoding();
 
         Professor::create([
@@ -89,6 +112,21 @@ class ProfessorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $regras = [
+            'nome' => 'required|min:10|max:100',
+            'email' => 'required|min:15|max:250|unique:professores',
+            'siape' => 'required|min:8|max:10|unique:professores',
+            'eixo_id' => 'required',
+        ];
+
+        $msg = [
+            "required" => "O campo [:attribute] é obrigatório!",
+            "min" => "O [:attribute] deve conter no mínimo [:min] caracteres!",
+            "max" => "O [:attribute] deve conter no máximo [:max] caracteres!",
+        ];
+
+        $request->validate($regras, $msg);
+        
         $encoding = mb_internal_encoding();
 
         $reg = Professor::find($id);
