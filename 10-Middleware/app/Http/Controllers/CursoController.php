@@ -4,13 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AlunoController extends Controller
+class CursoController extends Controller
 {
-    public function __construct() {
-
-        // $this->middleware('Mid');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +13,7 @@ class AlunoController extends Controller
      */
     public function index()
     {
-        //return "<h1>Teste</h1>";
-        return view('alunos.index');
+        return view('cursos.index');
     }
 
     /**
@@ -29,7 +23,7 @@ class AlunoController extends Controller
      */
     public function create()
     {
-        return view('alunos.create');
+        return view('cursos.create');
     }
 
     /**
@@ -51,7 +45,7 @@ class AlunoController extends Controller
      */
     public function show($id)
     {
-        return view('alunos.show');
+        return view('cursos.show');
     }
 
     /**
@@ -62,7 +56,7 @@ class AlunoController extends Controller
      */
     public function edit($id)
     {
-        return view('alunos.edit');
+        return view('cursos.edit');
     }
 
     /**
@@ -85,7 +79,6 @@ class AlunoController extends Controller
      */
     public function destroy($id)
     {
-        return view('alunos.destroy');
+        return view('cursos.destroy');
     }
 }
-

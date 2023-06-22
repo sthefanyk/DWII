@@ -50,14 +50,25 @@ class Mid {
         return $response;
     }*/
 
-    public function handle(Request $request, Closure $next) { 
-            
+    public function handle(Request $request, Closure $next, $permissao) {
+
         $route = Route::currentRouteName();
-        Log::debug("[Route]: ".$route);
-        Log::debug("[Mid]: Antes Resposta");
-        $response = $next($request);
-        Log::debug("[Mid]: Depois Resposta");
-        return $response;
+
+        //$route = explode(".", Route::currentRouteName());
+
+        if ($permissao == '1') {
+            if ($route == 'cursos.index' || $route == 'eixos.index') {
+                $response = $next($request);
+            }
+            $response->setContent(view('permissoes.denied'));
+        }
+            
+        //Log::debug("[Route]: ".$route);
+        //Log::debug("[Mid]: Antes Resposta");
+        //$response = $next($request);
+        //Log::debug("[Mid]: Depois Resposta".$permissao);
+        //return $response;
+        return $response->setContent('permissoes.denied');
     }
 
 
