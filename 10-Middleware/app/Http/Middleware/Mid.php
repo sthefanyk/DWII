@@ -53,23 +53,32 @@ class Mid {
     public function handle(Request $request, Closure $next, $permissao) {
 
         $route = Route::currentRouteName();
-
-        //$route = explode(".", Route::currentRouteName());
+        $pag = explode(".", Route::currentRouteName());
+        $response = $next($request);
+        
+        Log::debug("[Route]: ".$route);
+        Log::debug("[Permissão]: ".$permissao);
 
         if ($permissao == '1') {
             if ($route == 'cursos.index' || $route == 'eixos.index') {
-                $response = $next($request);
+                return $response;
             }
-            $response->setContent(view('permissoes.denied'));
+            return redirect('permissoes');
         }
-            
-        //Log::debug("[Route]: ".$route);
-        //Log::debug("[Mid]: Antes Resposta");
-        //$response = $next($request);
-        //Log::debug("[Mid]: Depois Resposta".$permissao);
-        //return $response;
-        return $response->setContent('permissoes.denied');
-    }
 
+        if ($permissao == '2') {
+            if ($pag[0] == 'alunos' || $pag[0] == 'professores' || $pag[0] == 'disciplinas') {
+                if ($pag[1] != 'index') { 
+                    return redirect('permissoes');
+                }
+            }
+            return $response;
+        }
+
+        if ($permissao == '3') {
+            return $response;
+        }
+        return redirect('permissoes');
+    }
 
 }

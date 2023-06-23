@@ -14,31 +14,18 @@ use App\Http\Middleware\Mid;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-
-})->middleware('Mid');  //->middleware(Mid::class);*/
-
-/*Route::get('/', function () {
-    return view('templates.main')->with('titulo', "");
-})->name('index');*/
+$permissoes = '3';
 
 Route::get('/', function () {
     return view('templates.middleware')->with('titulo', "");
 })->name('index');
 
+Route::resource('alunos', 'AlunoController')->middleware(['Mid: '.$permissoes]);
+Route::resource('cursos', 'CursoController')->middleware(['Mid: '.$permissoes]);
+Route::resource('disciplinas', 'DisciplinaController')->middleware(['Mid: '.$permissoes]);
+Route::resource('eixos', 'EixoController')->middleware(['Mid: '.$permissoes]);
+Route::resource('professores', 'ProfessorController')->middleware(['Mid: '.$permissoes]);
 
-// Route::get('/alunos', 'AlunoController@index')->middleware('Mid: Gil, 12');
-// Route::get('/alunos/{id}', 'AlunoController@show')->middleware('Mid: Eduardo, 34');
-/*Route::get('/alunos', 'AlunoController@index')
-    ->middleware('Mid', 'NewMid')->name('alunos.index');*/
-
-//Route::resource('alunos', 'AlunoController');
-Route::resource('alunos', 'AlunoController')->middleware(['Mid: 1']);
-Route::resource('cursos', 'CursoController')->middleware(['Mid: 1']);
-Route::resource('disciplinas', 'DisciplinaController')->middleware(['Mid: 1']);
-Route::resource('eixos', 'EixoController')->middleware(['Mid: 1']);
-Route::resource('professores', 'ProfessorController')->middleware(['Mid: 1']);
-
-/*Route::get('/alunos/{id}', 'AlunoController@show')
-    ->middleware('Mid')->name('alunos.show');*/
+Route::get('/permissoes', function() {
+    return view('permissoes.denied');
+});
