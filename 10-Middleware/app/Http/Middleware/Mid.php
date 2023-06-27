@@ -52,31 +52,35 @@ class Mid {
 
     public function handle(Request $request, Closure $next, $permissao) {
 
+        $per = array(
+            array(
+                'eixos.index', 
+                'cursos.index'
+            ),
+            array(
+                'eixos.index','eixos.create','eixos.show','eixos.edit','eixos.destroy',
+                'cursos.index', 'cursos.create','cursos.show','cursos.edit','cursos.destroy',
+                'disciplinas.index', 
+                'professores.index', 
+                'alunos.index'
+            ),
+            array(
+                'eixos.index','eixos.create','eixos.show','eixos.edit','eixos.destroy',
+                'cursos.index', 'cursos.create','cursos.show','cursos.edit','cursos.destroy',
+                'disciplinas.index', 'disciplinas.create','disciplinas.show','disciplinas.edit','disciplinas.destroy', 
+                'professores.index', 'professores.create','professores.show','professores.edit','professores.destroy', 
+                'alunos.index', 'alunos.create','alunos.show','alunos.edit','alunos.destroy', 
+            ),
+        );        
+
         $route = Route::currentRouteName();
         $pag = explode(".", Route::currentRouteName());
         $response = $next($request);
-        
-        Log::debug("[Route]: ".$route);
-        Log::debug("[Permissão]: ".$permissao);
 
-        if ($permissao == '1') {
-            if ($route == 'cursos.index' || $route == 'eixos.index') {
+        foreach ($per[$permissao-1] as $rotas) {
+            if ($rotas == $route) {
                 return $response;
             }
-            return redirect('permissoes');
-        }
-
-        if ($permissao == '2') {
-            if ($pag[0] == 'alunos' || $pag[0] == 'professores' || $pag[0] == 'disciplinas') {
-                if ($pag[1] != 'index') { 
-                    return redirect('permissoes');
-                }
-            }
-            return $response;
-        }
-
-        if ($permissao == '3') {
-            return $response;
         }
         return redirect('permissoes');
     }
