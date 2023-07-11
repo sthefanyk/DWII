@@ -10,7 +10,7 @@
                     @if($item == 'ativo')
                         <th scope="col" class="d-none d-md-table-cell">STATUS</th>
                     @else
-                        <th scope="col" class="d-none d-md-table-cell">{{ strtoupper($item) }}</th>      
+                        <th scope="col" class="d-none d-md-table-cell">{{ strtoupper($item) }}</th>
                     @endif
                 @endif
                 @php $cont++; @endphp
@@ -24,10 +24,10 @@
                 <tr>
                     @php $cont=0; @endphp
                     @foreach ($header as $hide)
-                        @if($cont)    
+                        @if($cont)
                             @if($hide == 'Área/Eixo')
                                 <td class="d-none d-md-table-cell">{{ $item->eixo->nome }}</td>
-                                
+
                             @elseif($hide == 'curso')
                                 <td class="d-none d-md-table-cell">{{ $item->curso->nome }}</td>
                             @elseif($hide == 'ativo')
@@ -37,11 +37,11 @@
                                     <td class="d-none d-md-table-cell">INATIVO</td>
                                 @endif
                             @elseif($hide == 'cursos')
-                                <td class="d-none d-md-table-cell">{{ $item->curso->nome }}</td>    
+                                <td class="d-none d-md-table-cell">{{ $item->curso->nome }}</td>
                             @else
-                                <td class="d-none d-md-table-cell">{{ $item->$hide }}</td>                    
+                                <td class="d-none d-md-table-cell">{{ $item->$hide }}</td>
                             @endif
-                        @endif 
+                        @endif
                         @php $cont = true @endphp
                     @endforeach
                     <td>

@@ -1,0 +1,61 @@
+version: "3"
+services:
+  app:
+    build:
+      args:
+        user: sthe
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: ts
+    container_name: ts-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - ts
+
+  db:
+    image: mysql:8.0
+    container_name: ts-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - ts
+
+  nginx:
+    image: nginx:alpine
+    container_name: ts-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - ts
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ts-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8013:80"
+    depends_on:
+      - db
+    networks:
+      - ts
+
+
+networks:
+  ts:
+    driver: bridge
